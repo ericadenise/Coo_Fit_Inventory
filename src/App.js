@@ -801,20 +801,32 @@ function App() {
                 </div>
               </div>
               
-              <div className="action-section">
+             <div className="action-section">
                 <h3 className="action-title">Next Steps</h3>
                 <div className="action-buttons">
-                  <button className="action-button primary-button">
-                    Schedule a Strategic Fit Call
-                  </button>
+                  <a 
+                    href="https://calendly.com/ericalane/employee_selection_strategy" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="action-button primary-button"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Schedule an Employee Selection Strategy Call
+                  </a>
                   
                   <button className="action-button secondary-button" onClick={() => window.print()}>
                     Download Report as PDF
                   </button>
                   
-                  <button className="action-button secondary-button">
-                    Get the Inventory Starter Packet
-                  </button>
+                  <a 
+                    href="https://coevolutionproject.com/assessment-starter-package/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="action-button secondary-button"
+                    style={{ textDecoration: "none" }}
+                  >
+                    The Assessment Starter Pack
+                  </a>
                 </div>
               </div>
             </div>
@@ -825,7 +837,14 @@ function App() {
                 You've clarified what kind of COO you need. Now it's time to explore whether your current candidate — or future hire — aligns with this fit.
               </p>
               <p className="next-steps-text">
-                We've created a candidate assessment experience that helps you evaluate this alignment clearly and confidently. You can preview it here: <a href="#" className="text-link">[Assessment Link]</a> Stay tuned — we'll send access to the starter packet and options to explore this further.
+                <a 
+                  href="https://calendly.com/ericalane/employee_selection_strategy" 
+                  className="text-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Schedule a Strategy Call
+                </a> to discuss your COO/Second-in-Command needs.
               </p>
             </div>
           </div>
