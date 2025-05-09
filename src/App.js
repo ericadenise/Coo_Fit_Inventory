@@ -671,7 +671,7 @@ function App() {
         {step === -1 ? (
           <div className="intro-section">
             <div className="user-info-form">
-              <h1 className="form-title">COO Fit Inventory</h1>
+              <h1 className="form-title">COO "Power of 2" Inventory</h1>
               <h2 className="form-subtitle">Discover your leadership profile and ideal operations partner</h2>
               
               <div className="form-field">
