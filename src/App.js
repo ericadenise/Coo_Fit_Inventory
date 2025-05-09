@@ -506,27 +506,26 @@ export default function COOFitInventory() {
             <input className="w-full border p-2 rounded mb-2" placeholder="Company Name" onChange={(e) => setUserInfo({ ...userInfo, company: e.target.value })} />
             <input className="w-full border p-2 rounded mb-2" placeholder="Email Address" type="email" onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} />
             <input className="w-full border p-2 rounded mb-4" placeholder="Number of Employees" onChange={(e) => setUserInfo({ ...userInfo, employees: e.target.value })} />
-            <button className="bg-blue-600 text-white py-2 px-4 rounded" $1>$2</button>
+            <button className="bg-blue-600 text-white py-2 px-4 rounded" onClick={handleStart}>Begin Inventory</button>
           </div>
         </div>
       ) : !showReport ? (
-        <Card>
-          <CardContent>
+        <div className="border rounded p-4 mb-6">
+          <div className="mb-4">
             <h2 className="text-xl font-bold mb-4">{questions[step].question}</h2>
             <div className="space-y-2">
               {questions[step].options.map((option, idx) => (
-                <Button
+                <button
                   key={idx}
-                  variant="outline"
-                  className="w-full text-left"
+                  className="w-full text-left border p-2 rounded mb-2"
                   onClick={() => handleAnswer(option)}
                 >
                   {option}
-                </Button>
+                </button>
               ))}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       ) : result ? (
         <Card>
           <CardContent>
@@ -554,9 +553,9 @@ export default function COOFitInventory() {
                 <li>This match creates a dynamic partnership — one that scales well under pressure.</li>
               </ul>
               <div className="mt-6 print:hidden">
-                <Button className="mr-2">Schedule a Strategic Fit Call</Button>
-                <Button variant="outline" className="mr-2" onClick={() => window.print()}>Download Inventory Report as PDF</Button>
-                <Button variant="secondary">Discover the Inventory Starter Packet</Button>
+                <button className="mr-2 bg-blue-600 text-white py-2 px-4 rounded">Schedule a Strategic Fit Call</button>
+                <button className="mr-2 border border-gray-300 py-2 px-4 rounded" onClick={() => window.print()}>Download Inventory Report as PDF</button>
+                <button className="bg-gray-200 text-black py-2 px-4 rounded">Discover the Inventory Starter Packet</button>
               </div>
             </div>
           </CardContent>
