@@ -1,8 +1,8 @@
 // Updated React component with scoring logic and dynamic profile rendering
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+
+
+
 
 // Placeholder question set (use full set in real app)
 const questions = [
@@ -499,16 +499,16 @@ export default function COOFitInventory() {
         <img src="/logo.png" alt="Company Logo" className="h-10 print:h-12" />
       </div>
       {step === -1 ? (
-        <Card>
-          <CardContent className="space-y-4">
+        <div className="border rounded p-4 mb-6">
+          <div className="mb-4">
             <h2 className="text-xl font-bold mb-4">Start Your COO Fit Inventory</h2>
-            <Input placeholder="Your Name" onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })} />
+            <input className="w-full border p-2 rounded" $1 /> setUserInfo({ ...userInfo, name: e.target.value })} />
             <Input placeholder="Company Name" onChange={(e) => setUserInfo({ ...userInfo, company: e.target.value })} />
             <Input placeholder="Email Address" type="email" onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} />
             <Input placeholder="Number of Employees" onChange={(e) => setUserInfo({ ...userInfo, employees: e.target.value })} />
-            <Button className="mt-4" onClick={handleStart}>Begin Inventory</Button>
-          </CardContent>
-        </Card>
+            <button className="bg-blue-600 text-white py-2 px-4 rounded" $1>$2</button>
+          </div>
+        </div>
       ) : !showReport ? (
         <Card>
           <CardContent>
