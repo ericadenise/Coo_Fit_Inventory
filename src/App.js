@@ -1,362 +1,730 @@
-// Updated React component with scoring logic and dynamic profile rendering
-import { useState, useEffect } from "react";
+/* COOFitInventory.css - Modern, clean styling for the COO Fit Inventory */
 
-// Placeholder question set (use full set in real app)
-const questions = [
-  {
-    id: 1,
-    category: "businessStage",
-    question: "How are decisions made in your business?",
-    options: [
-      "I make most decisions on the fly — fast and instinct-driven.",
-      "I still make most decisions, but the business is growing faster than I can scale myself.",
-      "We're adding structure, but decision-making is political or unclear.",
-      "Decisions are owned by the right people with the right data.",
-      "Our decision-making is clean but slow — we lean on precedent more than bold moves."
-    ]
-  },
-  // ... rest of questions array
-];
-
-const traitProfiles = {
-  "The Visionary Hurricane": [
-    { tone: "Execution-Focused Machine", trait: "Owns priorities, delivers consistently, and closes loops" },
-    { tone: "Systems-Driven Builder", trait: "Puts order behind your momentum without slowing it down" },
-    { tone: "Grounded & Unflappable", trait: "Brings calm to the storm and clarity to the chaos" },
-    { tone: "Strategic Guardrails", trait: "Helps you stop chasing everything and focus on what matters" },
-    { tone: "Quietly Accountable", trait: "Doesn't ask for attention — just keeps the business moving" },
-    { tone: "Healthy Challenger", trait: "Pushes back when needed, but with loyalty and logic" }
-  ],
-  "The Controlled Strategist": [
-    { tone: "Precision-Oriented Planner", trait: "Creates structure and order in the face of chaos" },
-    { tone: "Risk-Aware Decision Maker", trait: "Thinks carefully before acting and reduces volatility" },
-    { tone: "Loyal Executor", trait: "Implements your vision with discipline and patience" },
-    { tone: "Data-Guided Leader", trait: "Leans into analytics and clarity, not just charisma" },
-    { tone: "Consistency Over Chaos", trait: "Brings rhythm and pattern to execution and priorities" },
-    { tone: "Stability Advocate", trait: "Protects what's working and filters distractions" }
-  ],
-  "The Intuitive Builder": [
-    { tone: "Culture-Conscious Strategist", trait: "Protects people while pushing performance" },
-    { tone: "Empathetic Partner", trait: "Understands both the emotional and operational terrain" },
-    { tone: "Values-Driven Builder", trait: "Anchors operations in meaning and trust" },
-    { tone: "Team Whisperer", trait: "Brings cohesion to complexity and stability to vision" },
-    { tone: "Supportive Challenger", trait: "Stands firm while deeply understanding your style" },
-    { tone: "Soft-Spoken Enforcer", trait: "Holds accountability without eroding morale" }
-  ],
-  "The Lone Architect": [
-    { tone: "Independent Operator", trait: "Thinks deeply, works quietly, and executes solo" },
-    { tone: "Creative Mechanic", trait: "Supports innovation without unnecessary interference" },
-    { tone: "Bridge to Others", trait: "Translates your internal brilliance into shared systems" },
-    { tone: "Protective Collaborator", trait: "Respects boundaries while building trust" },
-    { tone: "Detail Interpreter", trait: "Helps you turn nuance into repeatable operations" },
-    { tone: "Trust-Builder", trait: "Provides patient accountability and responsive ownership" }
-  ],
-  "The Exhausted Operator": [
-    { tone: "Load-Lightening Leader", trait: "Removes the burden you're carrying so you can breathe again" },
-    { tone: "Reliability Engine", trait: "Doesn't flinch when chaos hits — they just move" },
-    { tone: "Team Stabilizer", trait: "Protects your culture while you catch your breath" },
-    { tone: "Ownership Advocate", trait: "Takes things off your plate and sees them through" },
-    { tone: "System Builder", trait: "Builds back-end clarity while protecting front-end results" },
-    { tone: "Loyal Right Hand", trait: "Stays calm, moves fast, and restores capacity" }
-  ],
-  "The Dispersed Generalist": [
-    { tone: "Priority Clarifier", trait: "Helps you focus and stop juggling everything at once" },
-    { tone: "Decision Streamliner", trait: "Cuts through noise and clears bottlenecks" },
-    { tone: "Structure Maker", trait: "Brings process to your pile of tools, tactics, and ideas" },
-    { tone: "Execution Partner", trait: "Turns your to-do list into what actually gets done" },
-    { tone: "Business Lens Sharpening", trait: "Filters shiny objects and anchors you in outcomes" },
-    { tone: "Quiet Force Multiplier", trait: "Works behind the scenes to elevate your effectiveness" }
-  ]
-};
-
-const stageDescriptions = {
-  earlyChaos: "Your business is still early — fast-moving, scrappy, and highly dependent on your energy. Structure is minimal, and the weight of execution still sits on your shoulders.",
-  growthStrain: "The business is growing fast — but execution is inconsistent, and the team's feeling stretched. You're juggling momentum with increasing complexity.",
-  transitionalTension: "You're at a turning point — the team is growing, and roles are evolving, but alignment is messy. You're balancing speed with the need for real systems.",
-  operationalMaturity: "Your company has strong systems and clear roles. Execution is reliable, but it can come at the cost of innovation or flexibility.",
-  slowingInnovation: "Operations are steady, but things are starting to feel too predictable. Innovation feels harder. You need to reignite momentum without breaking what works."
-};
-
-function calculateProfile(answers) {
-  const neoScores = {};
-  const powerPrefs = {
-    trust: 0,
-    control: 0,
-    challenge: 0,
-    feedback: 0
-  };
-  const stageAnswers = [];
-
-  answers.forEach((answer, i) => {
-    if (i >= questions.length) return; // Safety check for index out of bounds
-    
-    const question = questions[i];
-    const score = question.options.indexOf(answer) + 1;
-    
-    if (question.category === 'neo') {
-      if (!neoScores[question.facet]) neoScores[question.facet] = [];
-      neoScores[question.facet].push(score);
-    } else if (question.category === 'powerOfTwo') {
-      powerPrefs[question.dimension] += score;
-    } else if (question.category === 'businessStage') {
-      stageAnswers.push(score);
-    }
-  });
-
-  // Make sure we have stage answers to avoid division by zero
-  if (stageAnswers.length === 0) {
-    return {
-      profile: "The Dispersed Generalist", // Default profile
-      stage: "transitionalTension", // Default stage
-      traits: traitProfiles["The Dispersed Generalist"]
-    };
-  }
-
-  const avgStage = stageAnswers.reduce((a, b) => a + b, 0) / stageAnswers.length;
-  let stage = 'transitionalTension';
-  if (avgStage <= 1.8) stage = 'earlyChaos';
-  else if (avgStage <= 2.4) stage = 'growthStrain';
-  else if (avgStage <= 3.2) stage = 'transitionalTension';
-  else if (avgStage <= 4) stage = 'operationalMaturity';
-  else stage = 'slowingInnovation';
-
-  const facetAverages = {};
-  for (const facet in neoScores) {
-    const scores = neoScores[facet];
-    facetAverages[facet] = scores.reduce((a, b) => a + b, 0) / scores.length;
-  }
-
-  const high = (val) => val >= 4;
-  const low = (val) => val <= 2.4;
-
-  let profile = "The Dispersed Generalist";
-
-  if (high(facetAverages.fantasy) && low(facetAverages.order)) {
-    profile = "The Visionary Hurricane";
-  } else if (high(facetAverages.order) && low(facetAverages.openness)) {
-    profile = "The Controlled Strategist";
-  } else if (high(facetAverages.altruism) && high(facetAverages.tenderMindedness)) {
-    profile = "The Intuitive Builder";
-  } else if (high(facetAverages.fantasy) && low(facetAverages.gregariousness)) {
-    profile = "The Lone Architect";
-  } else if (high(facetAverages.dutifulness) && low(facetAverages.activity)) {
-    profile = "The Exhausted Operator";
-  }
-
-  return {
-    profile,
-    stage,
-    traits: traitProfiles[profile]
-  };
+/* ===== BASE STYLES ===== */
+:root {
+  --primary-color: #4a6bda;
+  --primary-hover: #3a58c7;
+  --primary-light: #eef2ff;
+  --secondary-color: #3c3f54;
+  --accent-color: #ff9d6c;
+  --background-color: #f8f9fc;
+  --card-color: white;
+  --text-color: #1a1d2d;
+  --text-light: #6b7280;
+  --border-color: #e1e4e8;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+  --border-radius: 12px;
+  --border-radius-sm: 6px;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --transition: all 0.2s ease;
 }
 
-export default function COOFitInventory() {
-  const today = new Date().toLocaleDateString();
-  const [step, setStep] = useState(-1);
-  const [userInfo, setUserInfo] = useState({ name: '', company: '', email: '', employees: '' });
-  const [answers, setAnswers] = useState([]);
-  const [showReport, setShowReport] = useState(false);
-  const [result, setResult] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  // Set page number in the footer
-  useEffect(() => {
-    if (showReport) {
-      setCurrentPage(1);
-    }
-  }, [showReport]);
+body {
+  font-family: var(--font-sans);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
 
-  const handleStart = () => {
-    if (userInfo.name && userInfo.company && userInfo.email && userInfo.employees) {
-      setStep(0);
-      setError(null);
-    } else {
-      setError("Please fill out all fields to begin.");
-    }
-  };
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
 
-  const handleAnswer = (answer) => {
-    try {
-      const newAnswers = [...answers, answer];
-      setAnswers(newAnswers);
-      
-      if (step + 1 < questions.length) {
-        setStep(step + 1);
-      } else {
-        setIsSubmitting(true);
-        const computed = calculateProfile(newAnswers);
-        setResult(computed);
+p {
+  margin-bottom: 1rem;
+}
 
-        const payload = {
-          user: userInfo,
-          profile: computed.profile,
-          stage: computed.stage,
-          traits: computed.traits,
-          answers: newAnswers
-        };
+ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
 
-        // Add error handling to the fetch request
-        fetch("https://your-placeholder-webhook-url.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Server responded with status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log("Submission successful:", data);
-          setShowReport(true);
-        })
-        .catch(err => {
-          console.error("Error submitting inventory:", err);
-          // Continue to show the report even if the submission fails
-          setError("There was an issue submitting your data, but we can still show your report.");
-          setShowReport(true);
-        })
-        .finally(() => {
-          setIsSubmitting(false);
-        });
-      }
-    } catch (err) {
-      console.error("Error processing answer:", err);
-      setError("Something went wrong. Please try again.");
-    }
-  };
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
 
-  return (
-    <div className="inventory-container">
-      <div className="logo-container">
-        <img src="/logo.png" alt="Company Logo" className="company-logo" />
-      </div>
-      
-      {error && (
-        <div className="error-message">
-          <p>{error}</p>
-        </div>
-      )}
-      
-      {isSubmitting && (
-        <div className="loading-overlay">
-          <div className="loading-spinner"></div>
-          <p>Processing your results...</p>
-        </div>
-      )}
-      
-      {step === -1 ? (
-        <div className="intro-section">
-          <div className="user-info-form">
-            <h2 className="form-title">Start Your COO Fit Inventory</h2>
-            <input 
-              className="input-field" 
-              placeholder="Your Name" 
-              value={userInfo.name}
-              onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })} 
-            />
-            <input 
-              className="input-field" 
-              placeholder="Company Name" 
-              value={userInfo.company}
-              onChange={(e) => setUserInfo({ ...userInfo, company: e.target.value })} 
-            />
-            <input 
-              className="input-field" 
-              placeholder="Email Address" 
-              type="email" 
-              value={userInfo.email}
-              onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} 
-            />
-            <input 
-              className="input-field" 
-              placeholder="Number of Employees" 
-              value={userInfo.employees}
-              onChange={(e) => setUserInfo({ ...userInfo, employees: e.target.value })} 
-            />
-            <button className="start-button" onClick={handleStart}>Begin Inventory</button>
-          </div>
-        </div>
-      ) : !showReport ? (
-        <div className="question-section">
-          <div className="question-container">
-            <h2 className="question-text">{questions[step].question}</h2>
-            <div className="options-container">
-              {questions[step].options.map((option, idx) => (
-                <button
-                  key={idx}
-                  className="option-button"
-                  onClick={() => handleAnswer(option)}
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
-            <div className="progress-indicator">
-              Question {step + 1} of {questions.length}
-            </div>
-          </div>
-        </div>
-      ) : result ? (
-        <div className="report-section">
-          <div className="report-container">
-            <h2 className="report-title">Your COO Fit Inventory Report</h2>
-            <p className="profile-description">You're a {result.profile}. {stageDescriptions[result.stage]}</p>
-            <div className="traits-container">
-              {result.traits.map((trait, idx) => (
-                <div key={idx} className="trait-card">
-                  <h3 className="trait-title">{trait.tone}</h3>
-                  <p className="trait-description">{trait.trait}</p>
-                </div>
-              ))}
-            </div>
-            <div className="insights-container">
-              <h3 className="insights-title">Why These Traits Matter</h3>
-              <ul className="insights-list">
-                <li>These traits are aligned to how you lead and where your business stands today.</li>
-                <li>They support your unique strengths while complementing gaps in execution.</li>
-                <li>They'll protect your energy while reinforcing trust, delivery, and culture.</li>
-              </ul>
-              <h3 className="insights-title">Power of Two Fit</h3>
-              <ul className="insights-list">
-                <li>Your ideal COO balances you — not just with skills, but style.</li>
-                <li>They'll reinforce what works while helping you grow with less friction.</li>
-                <li>This match creates a dynamic partnership — one that scales well under pressure.</li>
-              </ul>
-              <div className="action-buttons">
-                <button className="action-button">Schedule a Strategic Fit Call</button>
-                <button className="action-button" onClick={() => window.print()}>Download Inventory Report as PDF</button>
-                <button className="action-button">Discover the Inventory Starter Packet</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
-      
-      {result && (
-        <div className="next-steps-section">
-          <h3 className="next-steps-title">What's Next: Assessing Your Potential COO</h3>
-          <p className="next-steps-text">
-            You've clarified what kind of COO you need. Now it's time to explore whether your current candidate — or future hire — aligns with this fit.
-          </p>
-          <p className="next-steps-text">
-            We've created a candidate assessment experience that helps you evaluate this alignment clearly and confidently. You can preview it here: [Assessment Link Placeholder] Stay tuned — we'll send access to the starter packet and options to explore this further.
-          </p>
-        </div>
-      )}
-      
-      <div className="footer">
-        <p>Generated by the COO Fit Inventory • CoEvolution Project</p>
-        <p>© 2025 • <a href="https://www.coevolutionproject.com" target="_blank" rel="noopener noreferrer">www.coevolutionproject.com</a></p>
-        <p>{today}</p>
-        <p>Contact: hello@coevolutionproject.com</p>
-        <p>Page <span className="page-number">{currentPage}</span></p>
-      </div>
-    </div>
-  );
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-sans);
+  border: none;
+  outline: none;
+  transition: var(--transition);
+}
+
+input {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
+  width: 100%;
+  outline: none;
+  transition: var(--transition);
+}
+
+input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(74, 107, 218, 0.1);
+}
+
+/* ===== LAYOUT ===== */
+.inventory-container {
+  max-width: 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background-color: var(--background-color);
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Background decorative elements */
+.bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.bg-shape-1 {
+  width: 500px;
+  height: 500px;
+  background-color: rgba(74, 107, 218, 0.03);
+  top: -200px;
+  right: -200px;
+}
+
+.bg-shape-2 {
+  width: 400px;
+  height: 400px;
+  background-color: rgba(255, 157, 108, 0.03);
+  bottom: -100px;
+  left: -150px;
+}
+
+.bg-shape-3 {
+  width: 300px;
+  height: 300px;
+  background-color: rgba(74, 107, 218, 0.02);
+  top: 40%;
+  left: 5%;
+}
+
+/* ===== HEADER & LOGO ===== */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.company-logo {
+  height: 40px;
+  width: auto;
+}
+
+/* ===== ERROR & LOADING STATES ===== */
+.error-message {
+  display: flex;
+  align-items: center;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.error-icon {
+  width: 20px;
+  height: 20px;
+  fill: #b91c1c;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.spinner-inner {
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 4px solid transparent;
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+/* ===== INTRO SECTION / USER INFO FORM ===== */
+.intro-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.user-info-form {
+  background-color: var(--card-color);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 560px;
+  box-shadow: var(--shadow);
+}
+
+.form-title {
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: var(--secondary-color);
+}
+
+.form-subtitle {
+  text-align: center;
+  color: var(--text-light);
+  font-weight: 400;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.form-field {
+  margin-bottom: 1.5rem;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--secondary-color);
+}
+
+.start-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  padding: 1rem;
+  border-radius: var(--border-radius-sm);
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.start-button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.button-arrow {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  margin-left: 0.5rem;
+}
+
+.privacy-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 1.5rem;
+}
+
+/* ===== QUESTION SECTION ===== */
+.question-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  min-height: 60vh;
+  position: relative;
+  z-index: 1;
+}
+
+.question-container {
+  background-color: var(--card-color);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: var(--shadow);
+}
+
+.progress-bar {
+  height: 6px;
+  background-color: #e9ecef;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progress-indicator {
+  height: 100%;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.question-counter {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+}
+
+.question-text {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  line-height: 1.4;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.option-button {
+  text-align: left;
+  background-color: var(--primary-light);
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 1rem;
+  color: var(--text-color);
+  font-weight: 400;
+  transition: var(--transition);
+  line-height: 1.5;
+  border: 1px solid transparent;
+}
+
+.option-button:hover {
+  background-color: rgba(74, 107, 218, 0.15);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.option-button:active {
+  transform: translateY(0);
+}
+
+/* ===== REPORT SECTION ===== */
+.report-section {
+  position: relative;
+  z-index: 1;
+  padding: 0 1rem;
+}
+
+.report-container {
+  background-color: var(--card-color);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  width: 100%;
+  margin: 0 auto 2rem;
+  box-shadow: var(--shadow);
+  max-width: 900px;
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+}
+
+.report-title {
+  font-size: 1.8rem;
+  color: var(--secondary-color);
+}
+
+.report-date {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.profile-card {
+  background-color: var(--primary-light);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+.profile-title {
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+  color: var(--primary-color);
+}
+
+.profile-description {
+  font-size: 1.05rem;
+  color: var(--secondary-color);
+  line-height: 1.6;
+}
+
+.traits-wrapper {
+  margin-bottom: 2.5rem;
+}
+
+.traits-title {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  color: var(--secondary-color);
+}
+
+.traits-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.trait-card {
+  background-color: white;
+  border-radius: var(--border-radius-sm);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.trait-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.trait-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.trait-number {
+  background-color: var(--primary-color);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.trait-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+.trait-description {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.insights-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.insight-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.insights-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--secondary-color);
+}
+
+.insights-list li {
+  margin-bottom: 0.75rem;
+  color: var(--text-light);
+}
+
+.insights-list li:last-child {
+  margin-bottom: 0;
+}
+
+.action-section {
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 2rem;
+}
+
+.action-title {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: var(--secondary-color);
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--border-radius-sm);
+  font-weight: 500;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.primary-button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.primary-button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.secondary-button {
+  background-color: white;
+  color: var(--secondary-color);
+  border: 1px solid var(--border-color);
+}
+
+.secondary-button:hover {
+  background-color: #f9fafb;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.button-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  margin-right: 0.5rem;
+}
+
+.next-steps-section {
+  background-color: var(--card-color);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  box-shadow: var(--shadow);
+}
+
+.next-steps-title {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--secondary-color);
+}
+
+.next-steps-text {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.text-link {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background-color: var(--secondary-color);
+  padding: 2rem;
+  margin-top: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer p {
+  color: #e5e7eb;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer p:last-child {
+  margin-bottom: 0;
+}
+
+.footer-link {
+  color: #e5e7eb;
+  text-decoration: underline;
+}
+
+.footer-link:hover {
+  color: white;
+}
+
+.page-number {
+  font-weight: 600;
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .inventory-container {
+    background-color: white;
+  }
+  
+  .bg-shape {
+    display: none;
+  }
+  
+  .start-button, .action-button {
+    display: none;
+  }
+  
+  .report-container, .next-steps-section {
+    box-shadow: none;
+    border: 1px solid #e1e4e8;
+  }
+  
+  .trait-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  
+  .footer {
+    background-color: white;
+    border-top: 1px solid #e1e4e8;
+    padding: 1rem 0;
+  }
+  
+  .footer p {
+    color: #4b5563;
+  }
+  
+  .footer-link {
+    color: #4b5563;
+  }
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+@media (max-width: 768px) {
+  .report-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .report-date {
+    margin-top: 0.5rem;
+  }
+  
+  .traits-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .insights-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .action-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .user-info-form, .question-container, .report-container, .next-steps-section {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-title {
+    font-size: 1.8rem;
+  }
+  
+  .question-text {
+    font-size: 1.3rem;
+  }
+  
+  .profile-title {
+    font-size: 1.4rem;
+  }
+  
+  .report-title {
+    font-size: 1.5rem;
+  }
 }
