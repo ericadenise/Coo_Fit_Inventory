@@ -502,10 +502,10 @@ export default function COOFitInventory() {
         <div className="border rounded p-4 mb-6">
           <div className="mb-4">
             <h2 className="text-xl font-bold mb-4">Start Your COO Fit Inventory</h2>
-            <input className="w-full border p-2 rounded" $1 /> setUserInfo({ ...userInfo, name: e.target.value })} />
-            <Input placeholder="Company Name" onChange={(e) => setUserInfo({ ...userInfo, company: e.target.value })} />
-            <Input placeholder="Email Address" type="email" onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} />
-            <Input placeholder="Number of Employees" onChange={(e) => setUserInfo({ ...userInfo, employees: e.target.value })} />
+            <input className="w-full border p-2 rounded mb-2" placeholder="Your Name" onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })} />
+            <input className="w-full border p-2 rounded mb-2" placeholder="Company Name" onChange={(e) => setUserInfo({ ...userInfo, company: e.target.value })} />
+            <input className="w-full border p-2 rounded mb-2" placeholder="Email Address" type="email" onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} />
+            <input className="w-full border p-2 rounded mb-4" placeholder="Number of Employees" onChange={(e) => setUserInfo({ ...userInfo, employees: e.target.value })} />
             <button className="bg-blue-600 text-white py-2 px-4 rounded" $1>$2</button>
           </div>
         </div>
