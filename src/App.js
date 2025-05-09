@@ -495,30 +495,30 @@ export default function COOFitInventory() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 print:bg-white print:text-black print:p-4 print:max-w-full print:shadow-none">
-      <div className="mb-4 print:mb-6">
-        <img src="/logo.png" alt="Company Logo" className="h-10 print:h-12" />
+    <div >
+      <div >
+        <img src="/logo.png" alt="Company Logo"  />
       </div>
       {step === -1 ? (
-        <div className="border rounded p-4 mb-6">
-          <div className="mb-4">
-            <h2 className="text-xl font-bold mb-4">Start Your COO Fit Inventory</h2>
-            <input className="w-full border p-2 rounded mb-2" placeholder="Your Name" onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })} />
-            <input className="w-full border p-2 rounded mb-2" placeholder="Company Name" onChange={(e) => setUserInfo({ ...userInfo, company: e.target.value })} />
-            <input className="w-full border p-2 rounded mb-2" placeholder="Email Address" type="email" onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} />
-            <input className="w-full border p-2 rounded mb-4" placeholder="Number of Employees" onChange={(e) => setUserInfo({ ...userInfo, employees: e.target.value })} />
-            <button className="bg-blue-600 text-white py-2 px-4 rounded" onClick={handleStart}>Begin Inventory</button>
+        <div >
+          <div >
+            <h2 >Start Your COO Fit Inventory</h2>
+            <input  placeholder="Your Name" onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })} />
+            <input  placeholder="Company Name" onChange={(e) => setUserInfo({ ...userInfo, company: e.target.value })} />
+            <input  placeholder="Email Address" type="email" onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} />
+            <input  placeholder="Number of Employees" onChange={(e) => setUserInfo({ ...userInfo, employees: e.target.value })} />
+            <button  onClick={handleStart}>Begin Inventory</button>
           </div>
         </div>
       ) : !showReport ? (
-        <div className="border rounded p-4 mb-6">
-          <div className="mb-4">
-            <h2 className="text-xl font-bold mb-4">{questions[step].question}</h2>
-            <div className="space-y-2">
+        <div >
+          <div >
+            <h2 >{questions[step].question}</h2>
+            <div >
               {questions[step].options.map((option, idx) => (
                 <button
                   key={idx}
-                  className="w-full text-left border p-2 rounded mb-2"
+                  
                   onClick={() => handleAnswer(option)}
                 >
                   {option}
@@ -528,57 +528,57 @@ export default function COOFitInventory() {
           </div>
         </div>
       ) : result ? (
-        <div className="border rounded p-4 mb-6">
-          <div className="mb-4">
-            <h2 className="text-2xl font-bold mb-4">Your COO Fit Inventory Report</h2>
-            <p className="mb-6 italic">You’re a {result.profile}. {stageDescriptions[result.stage]}</p>
-            <div className="space-y-4">
+        <div >
+          <div >
+            <h2 >Your COO Fit Inventory Report</h2>
+            <p >You’re a {result.profile}. {stageDescriptions[result.stage]}</p>
+            <div >
               {result.traits.map((trait, idx) => (
-                <div key={idx} className="border rounded p-4">
-                  <h3 className="font-semibold text-lg">{trait.tone}</h3>
+                <div key={idx} >
+                  <h3 >{trait.tone}</h3>
                   <p>{trait.trait}</p>
                 </div>
               ))}
             </div>
-            <div className="mt-6 space-y-3">
-              <h3 className="text-lg font-bold">Why These Traits Matter</h3>
-              <ul className="list-disc list-inside">
+            <div >
+              <h3 >Why These Traits Matter</h3>
+              <ul >
                 <li>These traits are aligned to how you lead and where your business stands today.</li>
                 <li>They support your unique strengths while complementing gaps in execution.</li>
                 <li>They’ll protect your energy while reinforcing trust, delivery, and culture.</li>
               </ul>
-              <h3 className="text-lg font-bold">Power of Two Fit</h3>
-              <ul className="list-disc list-inside">
+              <h3 >Power of Two Fit</h3>
+              <ul >
                 <li>Your ideal COO balances you — not just with skills, but style.</li>
                 <li>They’ll reinforce what works while helping you grow with less friction.</li>
                 <li>This match creates a dynamic partnership — one that scales well under pressure.</li>
               </ul>
-              <div className="mt-6 print:hidden">
-                <button className="mr-2 bg-blue-600 text-white py-2 px-4 rounded">Schedule a Strategic Fit Call</button>
-                <button className="mr-2 border border-gray-300 py-2 px-4 rounded" onClick={() => window.print()}>Download Inventory Report as PDF</button>
-                <button className="bg-gray-200 text-black py-2 px-4 rounded">Discover the Inventory Starter Packet</button>
+              <div >
+                <button >Schedule a Strategic Fit Call</button>
+                <button  onClick={() => window.print()}>Download Inventory Report as PDF</button>
+                <button >Discover the Inventory Starter Packet</button>
               </div>
             </div>
           </div>
         </div>
       ) : null}
       {result && (
-        <div className="mt-10 border-t pt-6 print:block print:page-break-before-always">
-          <h3 className="text-xl font-bold mb-2">What’s Next: Assessing Your Potential COO</h3>
-          <p className="text-base mb-4">
+        <div >
+          <h3 >What’s Next: Assessing Your Potential COO</h3>
+          <p >
             You’ve clarified what kind of COO you need. Now it’s time to explore whether your current candidate — or future hire — aligns with this fit.
           </p>
-          <p className="text-base">
+          <p >
             We’ve created a candidate assessment experience that helps you evaluate this alignment clearly and confidently. You can preview it here: [Assessment Link Placeholder] Stay tuned — we’ll send access to the starter packet and options to explore this further.
           </p>
         </div>
       )}
-      <div className="mt-8 text-center text-sm text-gray-500 print:block hidden">
+      <div >
         <p>Generated by the COO Fit Inventory • CoEvolution Project</p>
         <p>© 2025 • <a href="https://www.coevolutionproject.com" target="_blank" rel="noopener noreferrer">www.coevolutionproject.com</a></p>
         <p>{today}</p>
         <p>Contact: hello@coevolutionproject.com</p>
-        <p>Page <span className="pageNumber"></span></p>
+        <p>Page <span ></span></p>
       </div>
     </div>
   );
