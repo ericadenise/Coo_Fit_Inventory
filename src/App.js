@@ -527,8 +527,8 @@ export default function COOFitInventory() {
           </div>
         </div>
       ) : result ? (
-        <Card>
-          <CardContent>
+        <div className="border rounded p-4 mb-6">
+          <div className="mb-4">
             <h2 className="text-2xl font-bold mb-4">Your COO Fit Inventory Report</h2>
             <p className="mb-6 italic">You’re a {result.profile}. {stageDescriptions[result.stage]}</p>
             <div className="space-y-4">
@@ -558,8 +558,8 @@ export default function COOFitInventory() {
                 <button className="bg-gray-200 text-black py-2 px-4 rounded">Discover the Inventory Starter Packet</button>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       ) : null}
       {result && (
         <div className="mt-10 border-t pt-6 print:block print:page-break-before-always">
