@@ -709,7 +709,7 @@ function App() {
               </div>
               
               <div className="form-field">
-                <label htmlFor="employees">Team Size</label>
+                <label htmlFor="employees">Number of Employees</label>
                 <input 
                   id="employees"
                   className="input-field" 
