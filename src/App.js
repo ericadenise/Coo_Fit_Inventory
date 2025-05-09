@@ -324,54 +324,199 @@ const questions = [
   }
 ];
 
+// Enhanced trait profiles with expanded descriptions
 const traitProfiles = {
   "The Visionary Hurricane": [
-    { tone: "Execution-Focused Machine", trait: "Owns priorities, delivers consistently, and closes loops" },
-    { tone: "Systems-Driven Builder", trait: "Puts order behind your momentum without slowing it down" },
-    { tone: "Grounded & Unflappable", trait: "Brings calm to the storm and clarity to the chaos" },
-    { tone: "Strategic Guardrails", trait: "Helps you stop chasing everything and focus on what matters" },
-    { tone: "Quietly Accountable", trait: "Doesn't ask for attention — just keeps the business moving" },
-    { tone: "Healthy Challenger", trait: "Pushes back when needed, but with loyalty and logic" }
+    { 
+      tone: "Execution-Focused Machine", 
+      trait: "Owns priorities, delivers consistently, and closes loops",
+      expanded: "This partner brings structured reliability to your visionary energy. While you generate ideas rapidly, they create the systems to capture, prioritize, and execute them. They transform your vision into tangible outcomes through methodical planning, consistent follow-through, and relentless focus on results. Look for someone who maintains detailed task lists, consistently completes what they start, and finds satisfaction in crossing items off their list—reflecting their natural discipline and organizational skills."
+    },
+    { 
+      tone: "Systems-Driven Builder", 
+      trait: "Puts order behind your momentum without slowing it down",
+      expanded: "Where you might resist structure that feels constraining, this partner thrives on creating organized frameworks that enhance rather than hinder your creativity. They naturally develop repeatable processes, documentation, and logical structures. They'll transform your fast-moving operation from reactive to proactive by implementing systems that scale your vision while preserving your ability to move quickly and pivot when needed."
+    },
+    { 
+      tone: "Grounded & Unflappable", 
+      trait: "Brings calm to the storm and clarity to the chaos",
+      expanded: "This trait represents emotional stability combined with a cooperative approach. In high-pressure situations where you might feel heightened stress or impatience, this partner remains steady and emotionally balanced. Their calm decision-making under pressure complements your intensity. They're the stabilizing force who can absorb the turbulence of rapid growth, helping the team distinguish between genuine emergencies and normal business challenges."
+    },
+    { 
+      tone: "Strategic Guardrails", 
+      trait: "Helps you stop chasing everything and focus on what matters",
+      expanded: "This partner possesses careful thinking combined with the confidence to provide constructive challenge. They help filter your stream of ideas through strategic lenses, preventing wasteful diversions while protecting your core innovations. Look for someone who can respectfully push back, asking clarifying questions that reveal which opportunities truly align with your vision, and which are distractions. They'll help you avoid the 'shiny object syndrome' that derails many visionary leaders."
+    },
+    { 
+      tone: "Quietly Accountable", 
+      trait: "Doesn't ask for attention — just keeps the business moving",
+      expanded: "This reflects someone with a strong sense of responsibility combined with lower need for excitement and moderate humility. They don't need the spotlight but take profound satisfaction in organizational achievement. They'll diligently track commitments across the business, foster a culture of accountability, and ensure the team delivers on promises. They value results over recognition, creating stability and reliability in execution that allows you to focus on the future."
+    },
+    { 
+      tone: "Healthy Challenger", 
+      trait: "Pushes back when needed, but with loyalty and logic",
+      expanded: "With balanced assertiveness and high candor, this partner provides the crucial counterbalance visionary leaders need. They're comfortable delivering candid feedback, questioning assumptions, and presenting alternative perspectives—without undermining your leadership. Their focus remains on strengthening ideas rather than competitive posturing. This healthy tension prevents groupthink while maintaining strong mutual respect and organizational alignment."
+    }
   ],
   "The Controlled Strategist": [
-    { tone: "Precision-Oriented Planner", trait: "Creates structure and order in the face of chaos" },
-    { tone: "Risk-Aware Decision Maker", trait: "Thinks carefully before acting and reduces volatility" },
-    { tone: "Loyal Executor", trait: "Implements your vision with discipline and patience" },
-    { tone: "Data-Guided Leader", trait: "Leans into analytics and clarity, not just charisma" },
-    { tone: "Consistency Over Chaos", trait: "Brings rhythm and pattern to execution and priorities" },
-    { tone: "Stability Advocate", trait: "Protects what's working and filters distractions" }
+    { 
+      tone: "Precision-Oriented Planner", 
+      trait: "Creates structure and order in the face of chaos",
+      expanded: "This partner excels at bringing methodical organization to your analytical approach. With a highly disciplined mindset and natural orderliness, they design systems that transform abstract strategies into concrete action plans. While you focus on conceptual frameworks and strategic direction, they establish the detailed processes needed for flawless implementation. Look for someone who finds satisfaction in creating clarity from complexity through structured planning, standard operating procedures, and defined metrics."
+    },
+    { 
+      tone: "Risk-Aware Decision Maker", 
+      trait: "Thinks carefully before acting and reduces volatility",
+      expanded: "This reflects thoughtful consideration combined with constructive caution directed toward positive risk management. Unlike impulsive operators who might create unpredictable outcomes, this partner conducts thoughtful scenario planning and anticipates potential issues before they arise. They balance your careful strategic approach with complementary operational risk management, ensuring that execution stays aligned with your measured vision while preventing avoidable disruptions."
+    },
+    { 
+      tone: "Loyal Executor", 
+      trait: "Implements your vision with discipline and patience",
+      expanded: "With a strong sense of commitment and respect for guidance, this partner demonstrates exceptional dedication to transforming your strategies into reality. They take deep personal responsibility for executing plans exactly as envisioned. Their strong sense of organizational loyalty means they'll preserve your strategic intent throughout implementation, even when facing obstacles. They find satisfaction in methodically building what you've designed, making them the perfect complement to your strategic mind."
+    },
+    { 
+      tone: "Data-Guided Leader", 
+      trait: "Leans into analytics and clarity, not just charisma",
+      expanded: "This partner shares your appreciation for objective analysis but applies it to different domains. While you focus on strategic data, they monitor operational metrics that reveal execution quality. Their moderate sociability combined with careful deliberation means they lead through evidence rather than force of personality. Look for someone who naturally thinks in measurable outcomes, regularly refers to data in conversations, and builds dashboards that translate complex operations into clear insights."
+    },
+    { 
+      tone: "Consistency Over Chaos", 
+      trait: "Brings rhythm and pattern to execution and priorities",
+      expanded: "This reflects strong self-discipline and moderate energy levels. Unlike erratic operators who create confusion with constantly shifting priorities, this partner establishes dependable cadences for work—regular review cycles, consistent communication patterns, and predictable resource allocation. They'll create the operational stability your analytical mind values, reducing the friction and noise that can distract from your strategic focus."
+    },
+    { 
+      tone: "Stability Advocate", 
+      trait: "Protects what's working and filters distractions",
+      expanded: "With a measured approach to change but high capability, this partner excels at preserving and optimizing systems that produce results. They resist arbitrary changes while remaining receptive to evidence-based improvements. This provides essential continuity while you consider long-term strategic shifts. They help distinguish between genuine opportunities and diversions by evaluating how potential changes might impact operational stability and team effectiveness."
+    }
   ],
   "The Intuitive Builder": [
-    { tone: "Culture-Conscious Strategist", trait: "Protects people while pushing performance" },
-    { tone: "Empathetic Partner", trait: "Understands both the emotional and operational terrain" },
-    { tone: "Values-Driven Builder", trait: "Anchors operations in meaning and trust" },
-    { tone: "Team Whisperer", trait: "Brings cohesion to complexity and stability to vision" },
-    { tone: "Supportive Challenger", trait: "Stands firm while deeply understanding your style" },
-    { tone: "Soft-Spoken Enforcer", trait: "Holds accountability without eroding morale" }
+    { 
+      tone: "Culture-Conscious Strategist", 
+      trait: "Protects people while pushing performance",
+      expanded: "This partner balances natural cooperation with strong drive for results. They understand that sustainable performance requires both human connection and clear standards. While you naturally focus on relationship dynamics and team cohesion, they apply this sensibility to creating performance systems that challenge people without burning them out. Look for someone who regularly discusses both team wellbeing and objective metrics, seeing them as complementary rather than competing priorities."
+    },
+    { 
+      tone: "Empathetic Partner", 
+      trait: "Understands both the emotional and operational terrain",
+      expanded: "With high emotional intelligence and capacity for trust, this partner excels at reading both organizational dynamics and individual needs. They translate your people-centric intuition into practical systems that honor relationships while driving results. They'll notice subtle shifts in team energy or engagement that might escape more task-focused operators, allowing early intervention before small issues become significant problems."
+    },
+    { 
+      tone: "Values-Driven Builder", 
+      trait: "Anchors operations in meaning and trust",
+      expanded: "This reflects strong care for others combined with practical capability. Unlike purely metrics-driven operators, this partner builds systems that express and reinforce your organization's deeper values. They understand that how work gets done matters as much as what gets accomplished. They naturally embed your cultural priorities into everyday operational practices, creating alignment between stated values and lived experience that builds authentic trust throughout the organization."
+    },
+    { 
+      tone: "Team Whisperer", 
+      trait: "Brings cohesion to complexity and stability to vision",
+      expanded: "With balanced sociability and natural trust, this partner excels at fostering genuine collaboration across different functions. They translate your intuitive understanding of team dynamics into practical collaboration structures. They create the conditions for psychological safety while maintaining accountability, allowing diverse perspectives to emerge without devolving into unproductive conflict. They're particularly skilled at helping technical and non-technical team members find common ground."
+    },
+    { 
+      tone: "Supportive Challenger", 
+      trait: "Stands firm while deeply understanding your style",
+      expanded: "This partner demonstrates healthy assertiveness balanced with respect for direction. They provide the crucial blend of support and constructive challenge that intuitive leaders need. They respect your people-first approach while ensuring it doesn't lead to avoidance of difficult decisions. Look for someone comfortable having candid conversations, providing feedback, and addressing performance issues directly—but who does so with genuine care and interpersonal skill rather than cold detachment."
+    },
+    { 
+      tone: "Soft-Spoken Enforcer", 
+      trait: "Holds accountability without eroding morale",
+      expanded: "With moderate assertiveness combined with high emotional intelligence, this partner maintains performance standards without creating unnecessary tension. Unlike forceful operators who might damage the culture you've built, they create accountability through clear expectations and consistent follow-through rather than dominance. They embody the principle that compassion and accountability are complementary forces rather than opposing values."
+    }
   ],
   "The Lone Architect": [
-    { tone: "Independent Operator", trait: "Thinks deeply, works quietly, and executes solo" },
-    { tone: "Creative Mechanic", trait: "Supports innovation without unnecessary interference" },
-    { tone: "Bridge to Others", trait: "Translates your internal brilliance into shared systems" },
-    { tone: "Protective Collaborator", trait: "Respects boundaries while building trust" },
-    { tone: "Detail Interpreter", trait: "Helps you turn nuance into repeatable operations" },
-    { tone: "Trust-Builder", trait: "Provides patient accountability and responsive ownership" }
+    { 
+      tone: "Independent Operator", 
+      trait: "Thinks deeply, works quietly, and executes solo",
+      expanded: "This partner shares your preference for independent work while complementing it with practical execution skills. Where you focus on intellectual exploration and conceptual design, they apply similar independent focus to implementation. They require minimal oversight and thrive on autonomous problem-solving. Look for someone who demonstrates consistent self-direction, requires little external motivation, and produces high-quality output without constant collaboration."
+    },
+    { 
+      tone: "Creative Mechanic", 
+      trait: "Supports innovation without unnecessary interference",
+      expanded: "With moderate openness to new ideas and strong capability, this partner respects your creative process while providing the technical foundation it requires. They understand when to apply structure and when to preserve flexibility. Unlike rigidly systematic operators who might constrain your thinking, they create enabling frameworks that support your innovation process without overwhelming it with unnecessary process. They translate your conceptual breakthroughs into scalable systems."
+    },
+    { 
+      tone: "Bridge to Others", 
+      trait: "Translates your internal brilliance into shared systems",
+      expanded: "This reflects moderate sociability combined with natural straightforwardness. While comfortable with your more reserved style, this partner excels at the external communication and stakeholder management your ideas require to gain traction. They respect your need for deep thinking space while ensuring your insights reach and influence the broader organization. They transform your complex internal models into accessible frameworks others can understand and implement."
+    },
+    { 
+      tone: "Protective Collaborator", 
+      trait: "Respects boundaries while building trust",
+      expanded: "With natural trust balanced with respect for guidelines, this partner understands your need for psychological space while creating the collaborative interfaces your business requires. They'll buffer you from unnecessary social demands while ensuring critical relationships remain strong. Look for someone who intuitively recognizes when to include you in discussions versus when to represent your interests, protecting your focus while maintaining organizational alignment."
+    },
+    { 
+      tone: "Detail Interpreter", 
+      trait: "Helps you turn nuance into repeatable operations",
+      expanded: "This partner combines orderliness with emotional intelligence, allowing them to perceive the subtle distinctions in your thinking and translate them into clear operational guidelines. They extract the critical elements from your complex mental models and transform them into processes others can follow consistently. They find satisfaction in meticulously documenting and systematizing your insights, creating leverage that extends your intellectual impact across the organization."
+    },
+    { 
+      tone: "Trust-Builder", 
+      trait: "Provides patient accountability and responsive ownership",
+      expanded: "With strong sense of responsibility and balanced assertiveness, this partner demonstrates deep commitment to your vision while providing the accountability mechanisms it requires. Rather than demanding immediate results or constant updates (which might feel intrusive to your thinking style), they establish clear agreements, maintain unobtrusive progress tracking, and provide thoughtful updates aligned with your communication preferences."
+    }
   ],
   "The Exhausted Operator": [
-    { tone: "Load-Lightening Leader", trait: "Removes the burden you're carrying so you can breathe again" },
-    { tone: "Reliability Engine", trait: "Doesn't flinch when chaos hits — they just move" },
-    { tone: "Team Stabilizer", trait: "Protects your culture while you catch your breath" },
-    { tone: "Ownership Advocate", trait: "Takes things off your plate and sees them through" },
-    { tone: "System Builder", trait: "Builds back-end clarity while protecting front-end results" },
-    { tone: "Loyal Right Hand", trait: "Stays calm, moves fast, and restores capacity" }
+    { 
+      tone: "Load-Lightening Leader", 
+      trait: "Removes the burden you're carrying so you can breathe again",
+      expanded: "This partner demonstrates strong capability coupled with dedication to commitments, allowing them to assume responsibility for operational domains that are currently consuming your energy. Unlike partially-committed deputies who require constant oversight, they take complete ownership of their areas, driving results while truly reducing your cognitive and emotional load. Look for someone with demonstrated capacity to fully own complex functions, make sound independent decisions, and proactively solve problems before escalating."
+    },
+    { 
+      tone: "Reliability Engine", 
+      trait: "Doesn't flinch when chaos hits — they just move",
+      expanded: "With emotional resilience and strong self-discipline, this partner maintains steady productivity regardless of circumstances. While you've been managing through exhaustion, they bring fresh energy and emotional stability. They thrive under pressure, maintaining clear thinking and decisive action even during crises. Their consistent execution creates a foundation of stability that allows you to gradually recover from burnout without fearing operational collapse."
+    },
+    { 
+      tone: "Team Stabilizer", 
+      trait: "Protects your culture while you catch your breath",
+      expanded: "This reflects balanced interpersonal warmth with high emotional intelligence. This partner understands that your current exhaustion makes cultural stewardship challenging, so they step in to maintain team cohesion and values alignment. They recognize subtle signs of cultural drift and address them proactively. They reinforce your leadership vision through their daily interactions, preserving what you've built while giving you space to recharge."
+    },
+    { 
+      tone: "Ownership Advocate", 
+      trait: "Takes things off your plate and sees them through",
+      expanded: "With strong drive for achievement and natural competence, this partner demonstrates complete follow-through rather than partial handoffs. Unlike operators who escalate decisions back to you, they take genuine ownership of outcomes. They establish clear decision rights, maintain appropriate transparency, and develop the organizational muscle of distributed accountability. They understand that true relief requires transferring not just tasks but results ownership."
+    },
+    { 
+      tone: "System Builder", 
+      trait: "Builds back-end clarity while protecting front-end results",
+      expanded: "This partner combines natural orderliness with careful consideration, creating the operational infrastructure your organization needs without disrupting current performance. They implement systems methodically, starting with the most pressing operational gaps. They understand that in your exhausted state, you need both immediate relief and long-term structural solutions, sequencing improvements to deliver both simultaneously."
+    },
+    { 
+      tone: "Loyal Right Hand", 
+      trait: "Stays calm, moves fast, and restores capacity",
+      expanded: "With strong commitment to obligations and moderate trust, this partner demonstrates unwavering dedication to both you and the organization during this challenging period. They step up without seeking to replace you, supporting your leadership while creating space for recovery. Look for someone who naturally picks up slack without drawing attention to it, maintains appropriate confidentiality, and genuinely wants to see you succeed rather than seeing your exhaustion as their opportunity."
+    }
   ],
   "The Dispersed Generalist": [
-    { tone: "Priority Clarifier", trait: "Helps you focus and stop juggling everything at once" },
-    { tone: "Decision Streamliner", trait: "Cuts through noise and clears bottlenecks" },
-    { tone: "Structure Maker", trait: "Brings process to your pile of tools, tactics, and ideas" },
-    { tone: "Execution Partner", trait: "Turns your to-do list into what actually gets done" },
-    { tone: "Business Lens Sharpening", trait: "Filters shiny objects and anchors you in outcomes" },
-    { tone: "Quiet Force Multiplier", trait: "Works behind the scenes to elevate your effectiveness" }
+    { 
+      tone: "Priority Clarifier", 
+      trait: "Helps you focus and stop juggling everything at once",
+      expanded: "This partner brings natural order and thoughtful consideration to your diverse interests and activities. While you naturally engage with a wide range of opportunities, they excel at evaluating relative importance and strategic alignment. They create the filtering mechanisms and prioritization frameworks that prevent diffusion of effort. Look for someone who consistently asks 'why this matters now' and can diplomatically redirect energy from interesting but non-critical activities toward genuine strategic priorities."
+    },
+    { 
+      tone: "Decision Streamliner", 
+      trait: "Cuts through noise and clears bottlenecks",
+      expanded: "With strong capability and self-discipline, this partner accelerates organizational decision-making that might otherwise stall due to your broad focus. They establish clear decision processes, appropriate delegation thresholds, and efficient information flows. Unlike operators who might make decisions unilaterally, they focus on creating systems that enable faster, better decisions throughout the organization while maintaining appropriate involvement from you on truly strategic matters."
+    },
+    { 
+      tone: "Structure Maker", 
+      trait: "Brings process to your pile of tools, tactics, and ideas",
+      expanded: "This reflects natural reliability combined with moderate openness to new approaches. This partner excels at organizing diverse initiatives into coherent frameworks without stifling creativity. They create the connective tissue between your various activities, identifying synergies and dependencies that might otherwise be missed. They transform apparent fragmentation into intentional portfolio management, revealing the underlying logic in your diverse interests."
+    },
+    { 
+      tone: "Execution Partner", 
+      trait: "Turns your to-do list into what actually gets done",
+      expanded: "With strong achievement drive and sense of responsibility, this partner transforms intentions into completed actions. They establish the accountability mechanisms, progress tracking, and follow-through habits that convert your extensive idea generation into tangible outcomes. Unlike reactive operators, they build proactive execution systems that anticipate needs and prevent last-minute scrambles. They find satisfaction in moving initiatives from concept to completion."
+    },
+    { 
+      tone: "Business Lens Sharpening", 
+      trait: "Filters shiny objects and anchors you in outcomes",
+      expanded: "This partner demonstrates careful deliberation combined with results orientation. They help evaluate opportunities through rigorous business criteria rather than novelty or intellectual interest alone. They maintain focus on key performance indicators and strategic outcomes when competing priorities emerge. Look for someone who consistently references impact measures in discussions, naturally asks about expected returns, and helps distinguish between genuinely promising opportunities and interesting distractions."
+    },
+    { 
+      tone: "Quiet Force Multiplier", 
+      trait: "Works behind the scenes to elevate your effectiveness",
+      expanded: "With moderate humility and strong capability, this partner amplifies your impact without seeking personal recognition. They identify opportunities to systematize your strengths and compensate for gaps in your attention. They create leverage through thoughtful delegation, process design, and resource alignment. Their focus remains on organizational results rather than personal visibility, making them the ideal complement to your wide-ranging leadership style."
+    }
   ]
 };
 
@@ -412,7 +557,7 @@ function calculateProfile(answers) {
   // Make sure we have stage answers to avoid division by zero
   if (stageAnswers.length === 0) {
     return {
-      profile: "The Dispersed Generalist", // Default profile
+     profile: "The Dispersed Generalist", // Default profile
       stage: "transitionalTension", // Default stage
       traits: traitProfiles["The Dispersed Generalist"]
     };
@@ -627,6 +772,8 @@ function App() {
                         <h4 className="trait-title">{trait.tone}</h4>
                       </div>
                       <p className="trait-description">{trait.trait}</p>
+                      <hr style={{ margin: "1rem 0", borderTop: "1px solid #e1e4e8", borderBottom: "none" }} />
+                      <p style={{ color: "#6b7280", fontSize: "0.95rem", lineHeight: "1.6" }}>{trait.expanded}</p>
                     </div>
                   ))}
                 </div>
@@ -636,18 +783,20 @@ function App() {
                 <div className="insight-column">
                   <h3 className="insights-title">Why These Traits Matter</h3>
                   <ul className="insights-list">
-                    <li>These traits are aligned to how you lead and where your business stands today.</li>
-                    <li>They support your unique strengths while complementing gaps in execution.</li>
-                    <li>They'll protect your energy while reinforcing trust, delivery, and culture.</li>
+                    <li>These traits are specifically aligned to <strong style={{ color: "#4a6bda" }}>your leadership style</strong> and where your business stands today.</li>
+                    <li>They're designed to support your unique strengths while complementing gaps in your execution approach.</li>
+                    <li>The right COO with these traits will protect your energy while reinforcing trust, delivery, and culture.</li>
+                    <li>These traits reflect underlying personality factors that ensure deeper compatibility beyond just skills or experience.</li>
                   </ul>
                 </div>
                 
                 <div className="insight-column">
                   <h3 className="insights-title">Power of Two Fit</h3>
                   <ul className="insights-list">
-                    <li>Your ideal COO balances you — not just with skills, but style.</li>
-                    <li>They'll reinforce what works while helping you grow with less friction.</li>
-                    <li>This match creates a dynamic partnership — one that scales well under pressure.</li>
+                    <li>Your ideal COO balances you — not just with skills, but with complementary personality traits and work style.</li>
+                    <li>They'll reinforce what works while helping you grow with less friction and better alignment.</li>
+                    <li>This match creates a dynamic partnership — one that scales well under pressure and adapts to changing needs.</li>
+                    <li>Together, you can create a leadership dynamic where 1 + 1 = 3 in terms of organizational impact.</li>
                   </ul>
                 </div>
               </div>
