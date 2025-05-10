@@ -657,7 +657,7 @@ function App() {
 
   return (
     <div className="inventory-container">
-      <div className="logo-container">
+      <div className="logo-container"style={{ display: 'none' }}>
         <img src="/CoEvolutionProject Logo.jpg" alt="Company Logo" className="company-logo" />
       </div>
       
