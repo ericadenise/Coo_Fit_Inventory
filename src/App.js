@@ -658,7 +658,7 @@ function App() {
   return (
     <div className="inventory-container">
       <div className="logo-container">
-        <img src="/logo.png" alt="Company Logo" className="company-logo" />
+        <img src="/CoEvolutionProject Logo.jpg" alt="Company Logo" className="company-logo" />
       </div>
       
       {error && (
