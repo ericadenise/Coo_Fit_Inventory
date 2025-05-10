@@ -656,10 +656,7 @@ function App() {
   };
 
   return (
-    <div className="inventory-container">
-      <div className="logo-container">
-        <img src="/CoEvolutionProject Logo.jpg" alt="Company Logo" className="company-logo" />
-      </div>
+   
       
       {error && (
         <div className="error-message">
