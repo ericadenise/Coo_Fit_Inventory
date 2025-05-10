@@ -674,7 +674,7 @@ function App() {
               <h1 className="form-title">The Second-in-Command Blueprint</h1>
               <h2 className="form-subtitle">A 25-Question Inventory to Find the COO or Operations Partner Your Business Needs to Scale</h2>
                <div className="description-text">
-               <p>This quick 25-question inventory helps you clarify what matters most in your next key hire—whether that's a COO, strategic partner, or operations leader. Drawing from the CoEvolutionProject's proven frameworks, these targeted questions guide you beyond generic job descriptions to identify the specific traits and working style that will best complement your leadership approach and drive your business forward.</p>
+               <p>Find the leadership partner who will accelerate everything you're building. This assessment captures how you operate, where your business is headed, and how you envision working with a second-in-command. Using CoEvolutionProject frameworks, these strategic questions illuminate exactly what you need in your next hire—the complementary strengths and working style that will unlock your business's next level of performance.</p>
              </div>
               <div className="form-field">
                 <label htmlFor="name">Your Name</label>
